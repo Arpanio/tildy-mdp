@@ -40,13 +40,13 @@ def rewards(amount):
 def change_state(current_state, user_input):
     global CURRENT_STATE
     # if current State is A and user presses 1, come back to A 100% times. small reward.
-    if current_state == "A" and userInput == 1:
+    if current_state == "A" and user_input == 1:
         CURRENT_STATE = STATES[0]
         rewards("small pos for A") 
     # if current State is A and user presses 2,
     # 80% chances that it goes to B and 20% that it comes back to A.
     # Small negative reward.
-    elif current_state == "A" and userInput == 2:
+    elif current_state == "A" and user_input == 2:
         CURRENT_STATE = np.random.choice(STATES, 1, p=[0.2, 0.8])[0]
         if CURRENT_STATE == "A":
             rewards("small pos")
@@ -55,7 +55,7 @@ def change_state(current_state, user_input):
     # if current state is B and user presses 1,
     # 80% chances that it goes to A and 20% that it comes back to B.
     # Big reward.
-    elif current_state == "B" and userInput == 1:
+    elif current_state == "B" and user_input == 1:
         CURRENT_STATE = np.random.choice(STATES, 1, p=[0.8, 0.2])[0]
         if CURRENT_STATE == "B":
             rewards("small neg")
@@ -64,7 +64,7 @@ def change_state(current_state, user_input):
     # if current state is B and user presses 1,
     # 80% chances that it goes to A and 20% that it comes back to B.
     # Small reward.
-    elif current_state == "B" and userInput == 2:
+    elif current_state == "B" and user_input == 2:
         CURRENT_STATE = np.random.choice(STATES, 1, p=[0.8, 0.2])[0]
         if CURRENT_STATE == "A":
             rewards("small pos")
@@ -93,11 +93,11 @@ if __name__ == "__main__":
     ACTIONS_TO_TAKE, _ = get_globals()
     while True:
         print_msg(MDP)
-        userInput = int(input())
-        if userInput not in ACTIONS_TO_TAKE:
+        user_input = int(input())
+        if user_input not in ACTIONS_TO_TAKE:
             print("Invalid action. Please choose an option from {}".format(ACTIONS_TO_TAKE))
             continue
-        change_state(CURRENT_STATE, userInput)
+        change_state(CURRENT_STATE, user_input)
         TIME_STEP = TIME_STEP + 1
         update_mdp(TIME_STEP, CURRENT_STATE)
 
